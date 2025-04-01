@@ -25,7 +25,7 @@ stlen = input(type=input.integer, defval=7, title="ATR Length")
 stmult = input(type=input.float, defval=7, title="Multiplier")
 stsmooth = input(type=input.integer, defval=5, title="Smoothing")
 
-stsrcdata = timeframe.period == "240" ?  close : na
+stsrcdata =  close 
 //stsrcdata = stsrc == "Close" ? close : ema(close, 21)
 //up = hl2 - (stmult * atr(stlen))
 //up1 = nz(up[1], up)
@@ -40,9 +40,9 @@ stsrcdata = timeframe.period == "240" ?  close : na
 
 [sttrend, stdir] = supertrend(stmult, stlen)
 
-if timeframe.period != "240"
-    sttrend := na
-    stdir := 0
+//if timeframe.period != "240"
+//    sttrend := na
+//    stdir := 0
 
 dir = stdir == stdir[1] ? (stdir == 1 ? "up" : "down") : ""
 col = barssince(dir == "") > stsmooth ? (dir == "up" ? color.red : dir == "down" ? color.green : color.new(color.black, 100)) : color.new(color.black, 100)
@@ -50,6 +50,8 @@ col = barssince(dir == "") > stsmooth ? (dir == "up" ? color.red : dir == "down"
 // --------------- Entry Protection Supertrend --------------- //
 
 useep = input(false, "Enable Entry Protection", type=input.bool)
+adjustSL = input(true, "Adjust SL after hitting TP", type=input.bool)
+
 //epstmult = stmult / 2
 epstmult = input(type=input.float, defval=3, title="Protection Multiplier")
 [epsttrend, epstdir] = supertrend(epstmult, stlen)
@@ -231,13 +233,24 @@ var float tpprice = na
 var float prevtpprice = na
 var tpnum = 0
 
-stSfpLong = timeframe.period == "240" and (rlsfp and open > sttrend and low < sttrend and close >= sttrend) and not (rlsfp and open[1] > sttrend and low[1] < sttrend and close[1] >= sttrend)
-stSfpShort = timeframe.period == "240" and (rlsfp and open < sttrend and high > sttrend and close <= sttrend) and not (rlsfp and open[1] < sttrend and high[1] > sttrend and close[1] <= sttrend)
+stSfpLong =  (rlsfp and open > sttrend and low < sttrend and close >= sttrend) and not (rlsfp and open[1] > sttrend and low[1] < sttrend and close[1] >= sttrend)
+stSfpShort = (rlsfp and open < sttrend and high > sttrend and close <= sttrend) and not (rlsfp and open[1] < sttrend and high[1] > sttrend and close[1] <= sttrend)
 
-buySignal   := timeframe.period == "240" and (crossover(stsrcdata[1], sttrend) or (position == 0 and dir == "down" and crossover(stsrcdata[1], eplevel))) or (position == 0 and stSfpLong) and window()
-sellSignal  := timeframe.period == "240" and (crossunder(stsrcdata[1], sttrend) or (position == 0 and dir == "up" and crossunder(stsrcdata[1], eplevel))) or (position == 0 and stSfpShort) and window()
-flipSignal  := timeframe.period == "240" and (crossover(stsrcdata[1], sttrend) or crossunder(stsrcdata[1], sttrend)) and window()
-closeSignal := timeframe.period == "240" and (position == 1 and crossunder(stsrcdata[1], eplevel) and eplevel < flipprice and tpnum == 0) or (position == -1 and crossover(stsrcdata[1], eplevel) and eplevel > flipprice and tpnum == 0) ? true : false
+buySignal   :=  (crossover(stsrcdata[1], sttrend) or (position == 0 and dir == "down" and crossover(stsrcdata[1], eplevel))) or (position == 0 and stSfpLong) and window()
+sellSignal  :=  (crossunder(stsrcdata[1], sttrend) or (position == 0 and dir == "up" and crossunder(stsrcdata[1], eplevel))) or (position == 0 and stSfpShort) and window()
+flipSignal  :=  (crossover(stsrcdata[1], sttrend) or crossunder(stsrcdata[1], sttrend)) and window()
+
+closeSig1 = (position == 1 and crossunder(stsrcdata[1], eplevel) and eplevel < flipprice and tpnum == 0)
+closeSig2 = (position == -1 and crossover(stsrcdata[1], eplevel) and eplevel > flipprice and tpnum == 0)
+
+closeSig3 = false
+closeSig4 = false
+
+if adjustSL
+    closeSig3 := position == 1 and tpnum > 0 and crossunder(stsrcdata, flipprice) 
+    closeSig4 := position == -1 and tpnum > 0 and crossover(stsrcdata, flipprice)  
+
+closeSignal :=  closeSig1 or closeSig2 or closeSig3 or closeSig4 ? true : false
 
 if (buySignal and not flipSignal and close < flipprice)
     flipprice := close
@@ -245,8 +258,8 @@ if (buySignal and not flipSignal and close < flipprice)
 if (sellSignal and not flipSignal and close > flipprice)
     flipprice := close
     
-rlLongSignal = timeframe.period == "240" and ((rlrsx and divbull) or stSfpLong) and ((position==1 and tpnum > 0) or (position == 0 and dir == "down"))
-rlShortSignal = timeframe.period == "240" and ((rlrsx and divbear) or stSfpShort) and ((position==-1 and tpnum > 0) or (position == 0 and dir == "up"))
+rlLongSignal =  ((rlrsx and divbull) or stSfpLong) and ((position==1 and tpnum > 0) or (position == 0 and dir == "down"))
+rlShortSignal =  ((rlrsx and divbear) or stSfpShort) and ((position==-1 and tpnum > 0) or (position == 0 and dir == "up"))
 
 position := strategy.position_size > 0 ? 1 : strategy.position_size < 0 ? -1 : 0
 
