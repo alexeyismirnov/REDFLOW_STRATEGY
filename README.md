@@ -6,6 +6,13 @@ The parameters that we optimize are as follows:
 
 <img width="420" alt="Screenshot 2025-04-23 at 9 50 16 PM" src="https://github.com/user-attachments/assets/394b280e-86bf-4639-ac73-88b14feacdf9" />
 
+| Symbol | Timeframe | Params | 
+| --- | --- | --- |
+| SOLUSDT | 2h | 7,7,5,2,1 |
+| TONUSDT | 2h | 7,7,5,4,1 |
+| DOTUSDT | 1h | 7,9,5,3,1 |
+| DOTUSDT | 2h | 10,9,8,4,2 |
+
 
 ## Strategy parameters for various coins. Timeframe is either 1h or 2h (depends on the coin).
 
