@@ -8,14 +8,13 @@ The parameters that we optimize are as follows:
 
 We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-optimizer-extension) to find the optimal parameters. The results are below:
 
-| Symbol | Timeframe | Params | 
-| --- | --- | --- |
-| SOLUSDT | 2h | 7,7,5,2,1 |
-| TONUSDT | 2h | 7,7,5,4,1 |
-| DOTUSDT | 1h | 7,9,5,3,1 |
-| DOTUSDT | 2h | 10,9,8,4,2 |
-| AVAXUSDT | 2h | 7,8,6,3,1 |
-| OSMOUSDT | 2h | 7,7,5,6,1 |
-| MANAUSDT | 2h | 7,7,6,7,1 |
-| OPUSDT | 2h | 7,9,5,6,1 |
-
+| Symbol | Timeframe | Params | PnL | Profit factor | 
+| --- | --- | --- | --- | --- |
+| SOLUSDT | 2h | 7,7,5,2,1 | 67.44 | 1.96
+| TONUSDT | 2h | 7,7,5,4,1 | 58.61 | 2.24
+| DOTUSDT | 1h | 7,9,5,3,1 | 71.99 | 2.02
+| DOTUSDT | 2h | 10,9,8,4,2 | 64.04 | 1.89
+| AVAXUSDT | 2h | 7,8,6,3,1 | 92.74 | 2.17
+| OSMOUSDT | 2h | 7,7,5,6,1 | 65.31 | 2.57
+| MANAUSDT | 2h | 7,7,6,7,1 | 99.14 | 2.13
+| OPUSDT | 2h | 8,9,5,6,1 | 113.85 | 2.16
