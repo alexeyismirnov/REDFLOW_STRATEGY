@@ -2,6 +2,11 @@
 
 [Original version is located here](https://gist.github.com/CryptoMF/11fb235322c1cc0a635c3133dd95f404/#file-mf_redflow_strategy). Several improvements have been made.
 
+The parameters that we optimize are as follows:
+
+<img width="420" alt="Screenshot 2025-04-23 at 9 50 16 PM" src="https://github.com/user-attachments/assets/394b280e-86bf-4639-ac73-88b14feacdf9" />
+
+
 ## Strategy parameters for various coins. Timeframe is either 1h or 2h (depends on the coin).
 
 <img width="543" alt="Screenshot 2025-03-28 at 12 15 09 PM" src="https://github.com/user-attachments/assets/a6958097-b981-447a-b908-dbafcf0ec90e" />
