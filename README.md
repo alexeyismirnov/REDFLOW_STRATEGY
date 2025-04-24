@@ -19,3 +19,4 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | MANAUSDT | 2h | 7,7,6,7,1 | 99.14 | 2.13
 | OPUSDT | 2h | 8,9,5,6,1 | 113.85 | 2.16
 | DOGEUSDT | 2h | 10,7,6,7,2 | 76.58 | 1.79
+| SUIUSDT | 2h | 7,9,5,7,2 | 81.94 | 1.81
