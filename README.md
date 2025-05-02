@@ -24,3 +24,4 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | BRETTUSDT | 2h | 7,8,5,7,2 | 61.38 | 1.98
 | WIFUSDT | 2h | 7,8,7,2,2 | 65.95 | 2.57
 | 1INCHUSDT | 2h | 8,7,7,5,2 | 67.10 | 1.68
+| SNXUSDT | 2h | 10,9,8,7,2 | 80.48 | 1.79
