@@ -22,3 +22,4 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | SUIUSDT | 2h | 7,9,5,7,2 | 81.94 | 1.81
 | CAKEUSDT | 2h | 8,8,8,7,1 | 75.95 | 2.12
 | BRETTUSDT | 2h | 7,8,5,7,2 | 61.38 | 1.98
+| WIFUSDT | 2h | 7,8,7,2,2 | 65.95 | 2.57
