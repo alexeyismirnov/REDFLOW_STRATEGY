@@ -24,6 +24,8 @@ closeSignal := na
 stlen = input(type=input.integer, defval=7, title="ATR Length")
 stmult = input(type=input.float, defval=7, title="Multiplier")
 stsmooth = input(type=input.integer, defval=5, title="Smoothing")
+tpgap = input(5.0, title="Take Profits Must be at Least (%) Apart", type=input.float, step=1)
+tpmax = input(1, title="Maximum Take Profits Before Close", type=input.float, step=1, minval=0, maxval=10)
 
 stsrcdata =  close 
 //stsrcdata = stsrc == "Close" ? close : ema(close, 21)
@@ -73,9 +75,8 @@ eplevel := useep and (not epinvalid and not sttakeover) ? epsttrendsmooth : na
 
 tppct = input(false, "Take Profit at % Intervals", type=input.bool)
 tprsx = input(true, "Take Profit on RSX Divergence", type=input.bool)
-tpgap = input(10.0, title="Take Profits Must be at Least (%) Apart", type=input.float, step=0.1)
-tpmax = input(10, title="Maximum Take Profits Before Close", type=input.float, step=1, minval=0, maxval=10)
-tpamt = input(30, title="Take Profit % Size", type=input.integer)
+
+tpamt = input(50, title="Take Profit % Size", type=input.integer)
 rlrsx = input(true, "Reload on RSX Divergence (Requires Take Profit)", type=input.bool)
 rlsfp = input(true, "Reload on Supertrend SFP (Requires Take Profit)", type=input.bool)
 
@@ -359,4 +360,3 @@ plotshape(useLabels and closeSignal ? high : na, text='Close', style=shape.label
 
 plotshape(stSfpLong, style=shape.triangleup, location=location.belowbar, color=color.green, offset=0, title="SFP Long", transp=0)
 plotshape(stSfpShort, style=shape.triangledown, location=location.abovebar, color=color.red, offset=0, title="SFP Short", transp=0)
-
