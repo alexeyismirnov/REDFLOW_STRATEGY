@@ -12,8 +12,8 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | --- | --- | --- | --- |
 | SOLUSDT | 7,7,5,2,1,12 | 67.44 | 1.96
 | TONUSDT | 7,7,5,4,1,12 | 58.61 | 2.24
-| DOTUSDT | 10,9,8,4,2 | 64.04 | 1.89
-| AVAXUSDT | 7,8,6,3,1 | 92.74 | 2.17
+| DOTUSDT | 10,9,8,4,2,14 | 64.04 | 1.89
+| AVAXUSDT | 7,8,6,3,1,10 | 92.74 | 2.17
 | OSMOUSDT | 7,7,5,6,1 | 65.31 | 2.57
 | MANAUSDT | 7,7,6,7,1 | 99.14 | 2.13
 | OPUSDT | 8,9,5,6,1 | 113.85 | 2.16
