@@ -22,6 +22,6 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | CAKEUSDT | 8,8,8,7,1 | 75.95 | 2.12
 | BRETTUSDT | 7,8,5,7,2 | 61.38 | 1.98
 | WIFUSDT | 7,8,7,2,2 | 65.95 | 2.57
-| 1INCHUSDT | 8,7,7,5,2 | 67.10 | 1.68
+| 1INCHUSDT | 8,7,7,5,2,13 | 67.10 | 1.68
 | SNXUSDT | 10,9,8,7,2 | 80.48 | 1.79
 | MNTUSDT | 9,8,6,6,1 | 78.22 | 2.13
