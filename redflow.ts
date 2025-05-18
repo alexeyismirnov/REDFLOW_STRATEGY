@@ -26,6 +26,7 @@ stmult = input(type=input.float, defval=7, title="Multiplier")
 stsmooth = input(type=input.integer, defval=5, title="Smoothing")
 tpgap = input(5.0, title="Take Profits Must be at Least (%) Apart", type=input.float, step=1)
 tpmax = input(1, title="Maximum Take Profits Before Close", type=input.float, step=1, minval=0, maxval=10)
+stopLossPercentage = input(10.0, "Stop Loss (%)", minval=5, step=1)
 
 stsrcdata =  close 
 //stsrcdata = stsrc == "Close" ? close : ema(close, 21)
@@ -322,6 +323,7 @@ strategy.entry("Long", strategy.long, when = buySignal and window(), comment = "
 strategy.entry("Short", strategy.short, when = sellSignal and window(), comment = "Short", alert_message = shortCommand)
 strategy.entry("Long", strategy.long, when = rlLongSignal and window(), comment = "Reload", alert_message = rlLongCommand)
 strategy.entry("Short", strategy.short, when = rlShortSignal and window(), comment = "Reload", alert_message = rlShortCommand)
+
 strategy.exit("TP1", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 1 and window(), comment = tpComment, alert_message = tpCommand)
 strategy.exit("TP2", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 2 and window(), comment = tpComment, alert_message = tpCommand)
 strategy.exit("TP3", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 3 and window(), comment = tpComment, alert_message = tpCommand)
@@ -334,6 +336,14 @@ strategy.exit("TP9", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSig
 strategy.exit("TP10", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 10 and window(), comment = tpComment, alert_message = tpCommand)
 strategy.close("Long", qty_percent=100, when=closeSignal and window(), comment = closeComment, alert_message = closeCommand)
 strategy.close("Short", qty_percent=100, when=closeSignal and window(), comment = closeComment, alert_message = closeCommand)
+
+
+if (strategy.position_size > 0 and close < strategy.position_avg_price * (1 - stopLossPercentage/100))
+    strategy.close("Long", qty_percent=100, comment="SL Long")
+
+if (strategy.position_size < 0 and close > strategy.position_avg_price * (1 + stopLossPercentage/100))
+    strategy.close("Short", qty_percent=100, comment="SL Short")
+
 
 tpSignal := false
 
