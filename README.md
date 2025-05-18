@@ -14,8 +14,8 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | TONUSDT | 7,7,5,4,1,12 | 58.61 | 2.24
 | DOTUSDT | 10,9,8,4,2,14 | 64.04 | 1.89
 | AVAXUSDT | 7,8,6,3,1,10 | 92.74 | 2.17
-| OSMOUSDT | 7,7,5,6,1 | 65.31 | 2.57
-| MANAUSDT | 7,7,6,7,1 | 99.14 | 2.13
+| OSMOUSDT | 7,7,5,6,1,10 | 65.31 | 2.57
+| MANAUSDT | 7,7,6,7,1,15 | 99.14 | 2.13
 | OPUSDT | 8,9,5,6,1 | 113.85 | 2.16
 | DOGEUSDT | 10,7,6,7,2 | 76.58 | 1.79
 | SUIUSDT | 7,9,5,7,2 | 81.94 | 1.81
