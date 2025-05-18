@@ -18,8 +18,8 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | MANAUSDT | 7,7,6,7,1,15 | 99.14 | 2.13
 | OPUSDT | 8,9,5,6,1,13 | 113.85 | 2.16
 | DOGEUSDT | 10,7,6,7,2,10 | 76.58 | 1.79
-| SUIUSDT | 7,9,5,7,2 | 81.94 | 1.81
-| CAKEUSDT | 8,8,8,7,1 | 75.95 | 2.12
+| SUIUSDT | 7,9,5,7,2,18 | 81.94 | 1.81
+| CAKEUSDT | 8,8,8,7,1,13 | 75.95 | 2.12
 | BRETTUSDT | 7,8,5,7,2 | 61.38 | 1.98
 | WIFUSDT | 7,8,7,2,2 | 65.95 | 2.57
 | 1INCHUSDT | 8,7,7,5,2,13 | 67.10 | 1.68
