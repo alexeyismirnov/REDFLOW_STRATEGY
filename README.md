@@ -24,4 +24,4 @@ We use [Tradingview optimizer extension](https://github.com/OptiPie/tradingview-
 | WIFUSDT | 7,8,7,2,2,18 | 65.95 | 2.57
 | 1INCHUSDT | 8,7,7,5,2,13 | 67.10 | 1.68
 | SNXUSDT | 10,9,8,7,2,13 | 80.48 | 1.79
-| MNTUSDT | 9,8,6,6,1 | 78.22 | 2.13
+| MNTUSDT | 9,8,6,6,1,15 | 78.22 | 2.13
