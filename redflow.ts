@@ -224,13 +224,6 @@ window()  => usewindow and time >= start and time <= finish ? true : false
 
 // -------------- Strategy Logic --------------------- //
 
-usefrosty = input(true, "Use Frostybot Alert Triggers", type=input.bool)
-frostyType = input("JS", "Frostybot Type", options=["JS", "PHP"])
-frostyStub = input("ftx", "Account Stub", type=input.string)
-frostySize = input(1, "Position Size", type=input.integer)
-frostySizeType = input("x", "Size Type", options=["$", "x", "%"])
-
-
 var float tpprice = na
 var float prevtpprice = na
 var tpnum = 0
@@ -306,36 +299,26 @@ if (closeSignal)
     tpSignal := false
     position := 0
 
-cmdPrefix = frostyType == "PHP" ? "" : "trade:"
-
-longCommand = usefrosty ? cmdPrefix+frostyStub+":long size="+tostring(frostySize)+(frostySizeType == "$" ? "" : frostySizeType)+" symbol="+syminfo.ticker+" comment=Long": "Long"
-shortCommand = usefrosty ? cmdPrefix+frostyStub+":short size="+tostring(frostySize)+(frostySizeType == "$" ? "" : frostySizeType)+" symbol="+syminfo.ticker+" comment=Short" : "Short"
-rlLongCommand = usefrosty ? cmdPrefix+frostyStub+":long size="+tostring(frostySize)+(frostySizeType == "$" ? "" : frostySizeType)+" symbol="+syminfo.ticker+" comment=Reload" : "Reload"
-rlShortCommand = usefrosty ? cmdPrefix+frostyStub+":short size="+tostring(frostySize)+(frostySizeType == "$" ? "" : frostySizeType)+" symbol="+syminfo.ticker+" comment=Reload" : "Reload"
-tpCommand = usefrosty ? cmdPrefix+frostyStub+":close size="+tostring(tpamt)+"% symbol="+syminfo.ticker+" comment=TP" : "TP"
-closeCommand = usefrosty ? cmdPrefix+frostyStub+":close symbol="+syminfo.ticker+" comment=Close" : "Close"
-
-
 tpComment = "TP ("+tostring(pctDiff)+"%)"
 closeComment = "Close ("+tostring(pctDiff)+"%)"
 
-strategy.entry("Long", strategy.long, when = buySignal and window(), comment = "Long", alert_message = longCommand)
-strategy.entry("Short", strategy.short, when = sellSignal and window(), comment = "Short", alert_message = shortCommand)
-strategy.entry("Long", strategy.long, when = rlLongSignal and window(), comment = "Reload", alert_message = rlLongCommand)
-strategy.entry("Short", strategy.short, when = rlShortSignal and window(), comment = "Reload", alert_message = rlShortCommand)
+strategy.entry("Long", strategy.long, when = buySignal and window(), comment = "Long")
+strategy.entry("Short", strategy.short, when = sellSignal and window(), comment = "Short")
+strategy.entry("Long", strategy.long, when = rlLongSignal and window(), comment = "Reload")
+strategy.entry("Short", strategy.short, when = rlShortSignal and window(), comment = "Reload")
 
-strategy.exit("TP1", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 1 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP2", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 2 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP3", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 3 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP4", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 4 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP5", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 5 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP6", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 6 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP7", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 7 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP8", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 8 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP9", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 9 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.exit("TP10", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 10 and window(), comment = tpComment, alert_message = tpCommand)
-strategy.close("Long", qty_percent=100, when=closeSignal and window(), comment = closeComment, alert_message = closeCommand)
-strategy.close("Short", qty_percent=100, when=closeSignal and window(), comment = closeComment, alert_message = closeCommand)
+strategy.exit("TP1", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 1 and window(), comment = tpComment)
+strategy.exit("TP2", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 2 and window(), comment = tpComment)
+strategy.exit("TP3", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 3 and window(), comment = tpComment)
+strategy.exit("TP4", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 4 and window(), comment = tpComment)
+strategy.exit("TP5", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 5 and window(), comment = tpComment)
+strategy.exit("TP6", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 6 and window(), comment = tpComment)
+strategy.exit("TP7", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 7 and window(), comment = tpComment)
+strategy.exit("TP8", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 8 and window(), comment = tpComment)
+strategy.exit("TP9", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 9 and window(), comment = tpComment)
+strategy.exit("TP10", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 10 and window(), comment = tpComment)
+strategy.close("Long", qty_percent=100, when=closeSignal and window(), comment = closeComment)
+strategy.close("Short", qty_percent=100, when=closeSignal and window(), comment = closeComment)
 
 
 if (strategy.position_size > 0 and close < strategy.position_avg_price * (1 - stopLossPercentage/100))
