@@ -214,14 +214,6 @@ if min[1] < min[2] and rsx[1] > min_rsi and rsx >= rsx[1] and rsx < rsxos and no
     divbull
     
 
-// -------------- Backtest Window --------------------- //
-
-usewindow = input(true, "Use Specific Backtest Window", type=input.bool)
-start = input(defval = timestamp("1 Jan 2019 00:00 +0000"), title = "Backtest Start", type = input.time)
-finish = input(defval = timestamp("31 Dec 9999 23:59 +0000"), title = "Backtest Finish", type = input.time)
-window()  => usewindow and time >= start and time <= finish ? true : false
-
-
 // -------------- Strategy Logic --------------------- //
 
 var float tpprice = na
@@ -231,9 +223,9 @@ var tpnum = 0
 stSfpLong =  (rlsfp and open > sttrend and low < sttrend and close >= sttrend) and not (rlsfp and open[1] > sttrend and low[1] < sttrend and close[1] >= sttrend)
 stSfpShort = (rlsfp and open < sttrend and high > sttrend and close <= sttrend) and not (rlsfp and open[1] < sttrend and high[1] > sttrend and close[1] <= sttrend)
 
-buySignal   :=  (crossover(stsrcdata[1], sttrend) or (position == 0 and dir == "down" and crossover(stsrcdata[1], eplevel))) or (position == 0 and stSfpLong) and window()
-sellSignal  :=  (crossunder(stsrcdata[1], sttrend) or (position == 0 and dir == "up" and crossunder(stsrcdata[1], eplevel))) or (position == 0 and stSfpShort) and window()
-flipSignal  :=  (crossover(stsrcdata[1], sttrend) or crossunder(stsrcdata[1], sttrend)) and window()
+buySignal   :=  (crossover(stsrcdata[1], sttrend) or (position == 0 and dir == "down" and crossover(stsrcdata[1], eplevel))) or (position == 0 and stSfpLong)
+sellSignal  :=  (crossunder(stsrcdata[1], sttrend) or (position == 0 and dir == "up" and crossunder(stsrcdata[1], eplevel))) or (position == 0 and stSfpShort)
+flipSignal  :=  (crossover(stsrcdata[1], sttrend) or crossunder(stsrcdata[1], sttrend))
 
 closeSig1 = (position == 1 and crossunder(stsrcdata[1], eplevel) and eplevel < flipprice and tpnum == 0)
 closeSig2 = (position == -1 and crossover(stsrcdata[1], eplevel) and eplevel > flipprice and tpnum == 0)
@@ -302,23 +294,23 @@ if (closeSignal)
 tpComment = "TP ("+tostring(pctDiff)+"%)"
 closeComment = "Close ("+tostring(pctDiff)+"%)"
 
-strategy.entry("Long", strategy.long, when = buySignal and window(), comment = "Long")
-strategy.entry("Short", strategy.short, when = sellSignal and window(), comment = "Short")
-strategy.entry("Long", strategy.long, when = rlLongSignal and window(), comment = "Reload")
-strategy.entry("Short", strategy.short, when = rlShortSignal and window(), comment = "Reload")
+strategy.entry("Long", strategy.long, when = buySignal, comment = "Long")
+strategy.entry("Short", strategy.short, when = sellSignal, comment = "Short")
+strategy.entry("Long", strategy.long, when = rlLongSignal, comment = "Reload")
+strategy.entry("Short", strategy.short, when = rlShortSignal, comment = "Reload")
 
-strategy.exit("TP1", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 1 and window(), comment = tpComment)
-strategy.exit("TP2", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 2 and window(), comment = tpComment)
-strategy.exit("TP3", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 3 and window(), comment = tpComment)
-strategy.exit("TP4", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 4 and window(), comment = tpComment)
-strategy.exit("TP5", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 5 and window(), comment = tpComment)
-strategy.exit("TP6", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 6 and window(), comment = tpComment)
-strategy.exit("TP7", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 7 and window(), comment = tpComment)
-strategy.exit("TP8", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 8 and window(), comment = tpComment)
-strategy.exit("TP9", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 9 and window(), comment = tpComment)
-strategy.exit("TP10", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 10 and window(), comment = tpComment)
-strategy.close("Long", qty_percent=100, when=closeSignal and window(), comment = closeComment)
-strategy.close("Short", qty_percent=100, when=closeSignal and window(), comment = closeComment)
+strategy.exit("TP1", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 1, comment = tpComment)
+strategy.exit("TP2", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 2, comment = tpComment)
+strategy.exit("TP3", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 3, comment = tpComment)
+strategy.exit("TP4", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 4, comment = tpComment)
+strategy.exit("TP5", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 5, comment = tpComment)
+strategy.exit("TP6", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 6, comment = tpComment)
+strategy.exit("TP7", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 7, comment = tpComment)
+strategy.exit("TP8", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 8, comment = tpComment)
+strategy.exit("TP9", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 9, comment = tpComment)
+strategy.exit("TP10", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 10, comment = tpComment)
+strategy.close("Long", qty_percent=100, when=closeSignal, comment = closeComment)
+strategy.close("Short", qty_percent=100, when=closeSignal, comment = closeComment)
 
 
 if (strategy.position_size > 0 and close < strategy.position_avg_price * (1 - stopLossPercentage/100))
