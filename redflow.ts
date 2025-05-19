@@ -29,18 +29,6 @@ tpmax = input(1, title="Maximum Take Profits Before Close", type=input.float, st
 stopLossPercentage = input(10.0, "Stop Loss (%)", minval=5, step=1)
 
 stsrcdata =  close 
-//stsrcdata = stsrc == "Close" ? close : ema(close, 21)
-//up = hl2 - (stmult * atr(stlen))
-//up1 = nz(up[1], up)
-//up := stsrcdata[1] > up1 ? max(up, up1) : up
-//dn = hl2 + (stmult * atr(stlen))
-//dn1 = nz(dn[1], dn)
-//dn := stsrcdata[1] < dn1 ? min(dn, dn1) : dn
-//stdir = 1
-//stdir := nz(stdir[1], stdir)
-//stdir := stdir == -1 and stsrcdata > dn1 ? 1 : stdir == 1 and stsrcdata < up1 ? -1 : stdir
-//sttrend = stdir == 1 ? up : stdir == -1 ? dn : na
-
 [sttrend, stdir] = supertrend(stmult, stlen)
 
 //if timeframe.period != "240"
@@ -294,6 +282,9 @@ if (closeSignal)
 tpComment = "TP ("+tostring(pctDiff)+"%)"
 closeComment = "Close ("+tostring(pctDiff)+"%)"
 
+longSL = position == 1 and close < strategy.position_avg_price * (1 - stopLossPercentage/100)
+shortSL = position == -1 and close > strategy.position_avg_price * (1 + stopLossPercentage/100)
+
 strategy.entry("Long", strategy.long, when = buySignal, comment = "Long")
 strategy.entry("Short", strategy.short, when = sellSignal, comment = "Short")
 strategy.entry("Long", strategy.long, when = rlLongSignal, comment = "Reload")
@@ -309,16 +300,8 @@ strategy.exit("TP7", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSig
 strategy.exit("TP8", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 8, comment = tpComment)
 strategy.exit("TP9", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 9, comment = tpComment)
 strategy.exit("TP10", from_entry="", limit=tpprice, qty_percent=tpamt, when=tpSignal and tpnum == 10, comment = tpComment)
-strategy.close("Long", qty_percent=100, when=closeSignal, comment = closeComment)
-strategy.close("Short", qty_percent=100, when=closeSignal, comment = closeComment)
-
-
-if (strategy.position_size > 0 and close < strategy.position_avg_price * (1 - stopLossPercentage/100))
-    strategy.close("Long", qty_percent=100, comment="SL Long")
-
-if (strategy.position_size < 0 and close > strategy.position_avg_price * (1 + stopLossPercentage/100))
-    strategy.close("Short", qty_percent=100, comment="SL Short")
-
+strategy.close("Long", qty_percent=100, when=closeSignal or longSL, comment = closeComment)
+strategy.close("Short", qty_percent=100, when=closeSignal or shortSL, comment = closeComment)
 
 tpSignal := false
 
